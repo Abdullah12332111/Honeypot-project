@@ -1,0 +1,5 @@
+// Failed RDP logons per hour
+SecurityEvent
+| where EventID == 4625
+| summarize FailedAttempts = count() by bin(TimeGenerated, 1h)
+| render timechart
