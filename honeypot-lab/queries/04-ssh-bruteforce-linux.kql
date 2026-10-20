@@ -1,8 +1,0 @@
-// SSH brute force attempts from Linux auth logs
-Syslog
-| where Facility in ("auth", "authpriv")
-| where SyslogMessage has "Failed password" or SyslogMessage has "Invalid user"
-| extend SourceIP = extract(@"from (\d{1,3}(?:\.\d{1,3}){3})", 1, SyslogMessage)
-| extend User = extract(@"(?:invalid user|for) (\S+)", 1, SyslogMessage)
-| summarize Attempts = count() by SourceIP, User
-| top 20 by Attempts desc
