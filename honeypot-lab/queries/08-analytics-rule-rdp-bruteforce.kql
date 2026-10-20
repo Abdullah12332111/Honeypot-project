@@ -1,0 +1,9 @@
+// Sentinel analytics rule: run every 5 min, lookback 15 min, alert if rows > 0
+SecurityEvent
+| where EventID == 4625
+| where isnotempty(IpAddress) and IpAddress != "-"
+| summarize FailedAttempts = count(), Accounts = dcount(TargetUserName),
+            FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated)
+            by IpAddress, Computer
+| where FailedAttempts >= 20
+| extend IPCustomEntity = IpAddress, HostCustomEntity = Computer

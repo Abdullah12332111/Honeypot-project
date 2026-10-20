@@ -1,0 +1,5 @@
+// Top 20 source IPs by failed logon attempts
+SecurityEvent
+| where EventID == 4625 and isnotempty(IpAddress) and IpAddress != "-"
+| summarize Attempts = count(), Accounts = dcount(TargetUserName) by IpAddress
+| top 20 by Attempts desc

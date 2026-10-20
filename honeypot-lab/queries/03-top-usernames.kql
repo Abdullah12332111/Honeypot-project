@@ -1,0 +1,5 @@
+// Most targeted usernames
+SecurityEvent
+| where EventID == 4625
+| summarize Attempts = count() by TargetUserName
+| top 20 by Attempts desc
