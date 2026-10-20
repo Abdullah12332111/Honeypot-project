@@ -2,7 +2,6 @@
 
 A cloud-based Security Operations Centre (SOC) built in Azure. A deliberately exposed honeypot VM captures real-world RDP and SSH brute-force attacks. Logs flow into Microsoft Sentinel, where attacks are investigated with KQL, visualised on geographic heat maps, and escalated by automated alerts. The infrastructure is then scanned with Tenable Nessus and hardened to security best practice.
 
-> **Status note:** Fill in every `[PLACEHOLDER]` with your own results from running the lab. Do not quote numbers you did not generate. Interviewers will ask about your data.
 
 ## Objectives
 
