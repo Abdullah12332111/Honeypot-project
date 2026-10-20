@@ -1,0 +1,10 @@
+// Geolocated failed logons for the Workbook map (Visualization = Map)
+SecurityEvent
+| where EventID == 4625 and isnotempty(IpAddress) and IpAddress != "-"
+| extend Geo = geo_info_from_ip_address(IpAddress)
+| extend Country = tostring(Geo.country),
+         City = tostring(Geo.city),
+         Latitude = toreal(Geo.latitude),
+         Longitude = toreal(Geo.longitude)
+| summarize Attempts = count() by IpAddress, Country, City, Latitude, Longitude
+| order by Attempts desc
