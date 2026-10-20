@@ -1,8 +1,0 @@
-// Classify sources as brute force or password spray
-SecurityEvent
-| where EventID == 4625
-| summarize Attempts = count(), DistinctUsers = dcount(TargetUserName) by IpAddress
-| extend Pattern = case(DistinctUsers > 10 and Attempts / DistinctUsers < 5, "Likely spray",
-                        DistinctUsers <= 3 and Attempts > 50, "Likely brute force",
-                        "Mixed / other")
-| order by Attempts desc
